@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Start Page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="scripts.js"></script>
+    </head>
+    <body onload="getDepartments()">
+        <h1>Hello World!</h1>
+        <h2>Ejemplo con JSP</h2>
+        <label for="departments">Departamentos</label>
+        <select id="departments" onchange="getTowns()">
+            <option>Selecc Departamento...</option>
+        </select>
+        
+        <label for="towns">Municipios</label>
+        <select id="towns" onchange="findTown()"></select>
+        
+        <div id="output" style="background: yellow; width:400px;margin-top: 20px">&nbsp;</div>
+    </body>
+</html>

@@ -1,0 +1,4 @@
+edu/uptc/classroom/model/FileJSONTest.class
+edu/uptc/classroom/model/ManagementTest.class
+edu/uptc/classroom/persistens/ConnectDBTest.class
+edu/uptc/classroom/persistens/DepartmentDAOTest.class
