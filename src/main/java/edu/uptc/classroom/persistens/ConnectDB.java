@@ -17,22 +17,16 @@ import java.util.logging.Logger;
  */
 public class ConnectDB {
     private final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private Connection connection;
-    private String url;
-    private String user;
-    private String password;
-
-    public ConnectDB(String url, String user, String password) {
-        this.url = url;
-        this.user = user;
-        this.password = password;
-    }
+    private Connection connection; 
+    private final String URL = "jdbc:mysql://localhost:3306/colombia?useSSL=false";
+    private final String USER = "uptc";
+    private final String PASSWORD = "estudiante";
     
-    public boolean getConnect( ){
+    public boolean isConnect( ){
         boolean state = false;
         try {
             Class.forName( DRIVER ).newInstance( );
-            connection = DriverManager.getConnection(url,user,password);
+            connection = DriverManager.getConnection(URL,USER,PASSWORD);
             state = true;
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -50,7 +44,5 @@ public class ConnectDB {
     public Connection getConnection() {
         return connection;
     }
-    
-    
     
 }

@@ -18,13 +18,13 @@ public class ConnectDBTest {
     
     private void setup( ){
 
-        connect = new ConnectDB("jdbc:mysql://localhost:3306/colombia", "uptc", "estudiante" );
+        connect = new ConnectDB( );
     }
 
     @Test
     public void testConnect( ) {
         setup();
-        assertTrue( connect.getConnect( ) );
+        assertTrue( connect.isConnect( ) );
     }
     
 }

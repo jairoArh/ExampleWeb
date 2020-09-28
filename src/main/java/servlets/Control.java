@@ -37,7 +37,7 @@ public class Control extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/json;charset=UTF-8");
+        response.setContentType("application/json;charset=UTF-8");
 
         try ( PrintWriter out = response.getWriter()) {
             //En la siguiente línea se obtiene la ruta absoluta del proyecto, 

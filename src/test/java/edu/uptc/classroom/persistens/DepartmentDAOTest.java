@@ -29,7 +29,7 @@ public class DepartmentDAOTest {
             while( rs.next( ) ){
                 String code = rs.getString("code");
                 String name = rs.getString("nameDepartment");
-                System.out.println( "Codigo="+code + " Nombre=" + name );
+                //System.out.println( "Codigo=" + code + " Nombre=" + name );
             }
         } catch (SQLException ex) {
             Logger.getLogger(DepartmentDAOTest.class.getName()).log(Level.SEVERE, null, ex);

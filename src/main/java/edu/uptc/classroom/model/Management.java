@@ -6,6 +6,7 @@
 package edu.uptc.classroom.model;
 
 import edu.uptc.classroom.persistens.DepartmentDAO;
+import edu.uptc.classroom.persistens.TownDAO;
 import java.io.FileNotFoundException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,13 +23,15 @@ public class Management {
     private ArrayList<Department> departments;
     private ArrayList<Town> towns;
     private FileJSON file;
-    private DepartmentDAO department;
+    private DepartmentDAO departmentDAO;
+    private TownDAO townDAO;
 
-    public Management() throws FileNotFoundException {
+    public Management()  {
         departments = new ArrayList<>();
         towns = new ArrayList<>();
         file = new FileJSON();
-        department = new DepartmentDAO();
+        departmentDAO = new DepartmentDAO();
+        townDAO = new TownDAO();
     }
     
     /***
@@ -151,8 +154,8 @@ public class Management {
      * @throws SQLException Propaga una Excepción si el gestor de la base de datos retorna algún tipo de error.
      */
     
-    public void loadDepartments( ) throws SQLException{
-        ResultSet rs = department.loadDepartments();
+    public void loadDepartmentsDB( ) throws SQLException{
+        ResultSet rs = departmentDAO.loadDepartments();
         
          while( rs.next( ) ){
                 String code = rs.getString("code");
@@ -162,20 +165,90 @@ public class Management {
     } 
     
     /**
+     * Método que agrega en el arreglo de municipios los registros de la tabla en la Base de Datos
+     * @throws SQLException 
+     */
+    
+    public void loadTownsDB() throws SQLException{
+        ResultSet rs = townDAO.loadTowns();
+        while(rs.next()){
+            String code = rs.getString("code");
+            String department = rs.getString("ref_department");
+            String name = rs.getString("name_town");
+            towns.add( new Town(code, department, name) );
+            Department dpto = findDepartment( department );
+            dpto.addTown(code, name);
+        }
+        
+    }
+    
+    /**
      * Método que permite agregar un registro de Departamento en la Base de Datos.
      * @param code Especifica el código del Departamento
      * @param name Especifica el nombre del Departamento
-     * @return El número de registros insertados en la base de datos.
+     * @return Verdadero si se puede agregar el Registro, falso, si no se puede
      */
     
-    public int addDepartmentDB(String code, String name){
+    public boolean addDepartmentDB(String code, String name){
         try {
-            return department.insertDepartment( new Department(code, name));
+            if( findDepartment(code) == null ){
+                Department dpto = new Department(code, name);
+                departments.add( dpto );
+                departmentDAO.insertDepartment( dpto );
+                
+                return true;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(Management.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return 0;
+        return false;
+    }
+    
+    /**
+     * Método que agrega un Municipio con persistencia a la Base de Datos.
+     * @param code Especifica el código del Municipio
+     * @param dpto Especifica el Departamento al cual pertenece el municipio
+     * @param name Especifica el Nopmbre del Municipio
+     * @return Verdadero si se puede agregar el Registro, falso, si no se puede
+     */
+    
+    public boolean addTown( String code, String dpto, String name ){
+        if( findTown( code ) == null ){
+            Town town = new Town(code, dpto, name);
+            towns.add( town );
+            Department department = findDepartment( dpto );
+            department.addTown(code, name);
+            try {
+                townDAO.insertTown(town);
+                return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(Management.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Método para eliminar un objeto del arreglo de objetos y de la base de datos.
+     * @param code Especifica el código o valor de la clave del objeto a borrar
+     * @return Verdadero si puede eliminar, Falso si no.
+     */
+    
+    public boolean deleteTownDB( String code ){
+        Town town = findTown( code );
+        if( town != null ){
+            if( towns.remove(town) ){
+                int delete = townDAO.deleteTown( code );
+                
+                return delete > 0;
+                
+            }   
+        }
+        
+        return false;
     }
    
 }

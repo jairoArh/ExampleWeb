@@ -30,6 +30,12 @@ public class ManagementTest {
             Logger.getLogger(ManagementTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    private void setupDB() throws SQLException{
+        mng = new Management( );
+        mng.loadDepartmentsDB( );
+        mng.loadTownsDB( );
+    }
 
     @Test
     public void testGetDepartments( ) {
@@ -78,14 +84,17 @@ public class ManagementTest {
     }
     
     @Test
-    public void testGetDptos() throws SQLException{
-        setup();
-        mng.loadDepartments();
-        for( Department dpto : mng.getDepartments()){
-            System.out.println(">>>>>>>>>>>>>>>>><"+dpto+"<<<<<<<<<<<<<<<<<");
-        } 
+    public void getDepartmentsDB(){
+        try {
+            setupDB();
+            assertEquals(33,mng.getDepartments().size());
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagementTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        //mng.addDepartmentDB("999", "Libertad");
     }
+    
+  
     
 }

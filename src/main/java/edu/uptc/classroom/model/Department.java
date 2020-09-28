@@ -43,7 +43,7 @@ public class Department {
     }
     
     public void addTown(String code, String name ){
-        towns.add( new Town(code, code, name ) );
+        towns.add( new Town(code, this.code, name ) );
     }
     
     public Town findTown( String code ){

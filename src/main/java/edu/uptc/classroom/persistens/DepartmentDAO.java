@@ -19,7 +19,7 @@ public class DepartmentDAO {
     private ConnectDB connect;
 
     public DepartmentDAO() {
-        connect = new ConnectDB("jdbc:mysql://localhost:3306/colombia", "uptc", "estudiante");
+        connect = new ConnectDB( );
     }
     
     /**
@@ -29,7 +29,7 @@ public class DepartmentDAO {
      */
 
     public ResultSet loadDepartments() throws SQLException {
-        if (connect.getConnect()) {
+        if (connect.isConnect()) {
             Statement statement = connect.getConnection().createStatement();
             return statement.executeQuery("select * from department");
         }
@@ -46,7 +46,7 @@ public class DepartmentDAO {
 
     public int insertDepartment(Department dpto) throws SQLException {
 
-        if (connect.getConnect()) {
+        if (connect.isConnect()) {
             Statement statement = connect.getConnection().createStatement();
             return statement.executeUpdate("insert into department values('"+dpto.getCode()+"','"+dpto.getName()+"')");
         }

@@ -5,17 +5,18 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="scripts.js"></script>
     </head>
-    <body onload="getDepartments()">
+    <body onload="loadDepartments()">
         <h1>Hello World!</h1>
         <h2>Ejemplo con JSP</h2>
         <label for="departments">Departamentos</label>
-        <select id="departments" onchange="getTowns()">
+        <select id="departments" onchange="loadTowns()">
             <option>Selecc Departamento...</option>
         </select>
         
         <label for="towns">Municipios</label>
-        <select id="towns" onchange="findTown()"></select>
+        <select id="towns" onchange="searchTown()"></select>
         
-        <div id="output" style="background: yellow; width:400px;margin-top: 20px">&nbsp;</div>
+        <div id="output" style="background: yellow; width:400px;margin: 20px">&nbsp;</div>
+        <a href="addTown.html">Agregar Municipio</a>
     </body>
 </html>

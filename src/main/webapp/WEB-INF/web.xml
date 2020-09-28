@@ -5,16 +5,16 @@
         <servlet-class>servlets.Control</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ControlDB</servlet-name>
-        <servlet-class>servlets.ControlDB</servlet-class>
+        <servlet-name>ControllDB</servlet-name>
+        <servlet-class>servlets.ControllDB</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Control</servlet-name>
         <url-pattern>/Control</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ControlDB</servlet-name>
-        <url-pattern>/ControlDB</url-pattern>
+        <servlet-name>ControllDB</servlet-name>
+        <url-pattern>/ControllDB</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
